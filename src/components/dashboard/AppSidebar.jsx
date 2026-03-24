@@ -106,7 +106,7 @@ const AppSidebar = () => {
       <div className="relative px-3 pb-3">
         <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur">
           <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white font-semibold text-sm">
-            CS
+            TU
           </div>
           <AnimatePresence>
             {!collapsed && (
@@ -116,7 +116,7 @@ const AppSidebar = () => {
                 exit={{ opacity: 0 }}
                 className="flex-1 min-w-0"
               >
-                <p className="text-sm font-medium text-white truncate">Chandan Singh</p>
+                <p className="text-sm font-medium text-white truncate">Turgnina</p>
                 <p className="text-[11px] text-white/50 truncate">SuperAdmin</p>
               </motion.div>
             )}

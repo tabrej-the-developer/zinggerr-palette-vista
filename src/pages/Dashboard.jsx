@@ -27,7 +27,7 @@ const Dashboard = () => {
           {/* Welcome */}
           <div>
             <h1 className="text-2xl font-bold text-main">
-              Welcome back, Chandan
+              Welcome back, Turgnina
             </h1>
             <p className="text-sm text-muted-custom mt-1">
               Your curriculum is performing 12% above benchmark.

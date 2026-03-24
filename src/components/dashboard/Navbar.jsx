@@ -34,10 +34,10 @@ const Navbar = () => {
             className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
             style={{ backgroundColor: 'var(--primary)' }}
           >
-            CS
+            TU
           </div>
           <div className="text-left hidden sm:block">
-            <p className="text-sm font-semibold text-main">Chandan</p>
+            <p className="text-sm font-semibold text-main">Turgnina</p>
             <p className="text-[11px] text-muted-custom">SuperAdmin</p>
           </div>
           <ChevronDown size={14} className="text-muted-custom" />
