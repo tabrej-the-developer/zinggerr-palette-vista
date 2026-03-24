@@ -5,12 +5,12 @@ import { ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Breadcrumb = React.forwardRef & {
-    separator?: React.ReactNode;
+
   }
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
 Breadcrumb.displayName = "Breadcrumb";
 
-const BreadcrumbList = React.forwardRef>(
+const BreadcrumbList = React.forwardRef(
   ({ className, ...props }, ref) => (
     <ol
       ref={ref}
@@ -24,16 +24,14 @@ const BreadcrumbList = React.forwardRef>(
 );
 BreadcrumbList.displayName = "BreadcrumbList";
 
-const BreadcrumbItem = React.forwardRef>(
+const BreadcrumbItem = React.forwardRef(
   ({ className, ...props }, ref) => (
     <li ref={ref} className={cn("inline-flex items-center gap-1.5", className)} {...props} />
   ),
 );
 BreadcrumbItem.displayName = "BreadcrumbItem";
 
-const BreadcrumbLink = React.forwardRef & {
-    asChild?: boolean;
-  }
+const BreadcrumbLink = React.forwardRef
 >(({ asChild, className, ...props }, ref) => {
   const Comp = asChild ? Slot : "a";
 
@@ -41,7 +39,7 @@ const BreadcrumbLink = React.forwardRef & {
 });
 BreadcrumbLink.displayName = "BreadcrumbLink";
 
-const BreadcrumbPage = React.forwardRef>(
+const BreadcrumbPage = React.forwardRef(
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
