@@ -29,7 +29,7 @@ function useCarousel() {
   return context;
 }
 
-const Carousel = React.forwardRef & CarouselProps>(
+const Carousel = React.forwardRef(
   ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
