@@ -17,7 +17,7 @@ const CalendarWidget = () => {
   for (let i = 0; i < firstDay; i++) days.push(null);
   for (let i = 1; i <= daysInMonth; i++) days.push(i);
 
-  const isToday = (d: number | null) =>
+  const isToday = (d) =>
     d !== null && d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
 
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
-  setApi?: (api: CarouselApi) => void;
+  setApi?: (api) => void;
 };
 
   api: ReturnType<typeof useEmblaCarousel>[1];
@@ -41,7 +41,7 @@ const Carousel = React.forwardRef & CarouselProps>(
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-    const onSelect = React.useCallback((api: CarouselApi) => {
+    const onSelect = React.useCallback((api) => {
       if (!api) {
         return;
       }

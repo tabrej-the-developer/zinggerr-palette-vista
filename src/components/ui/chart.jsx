@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const THEMES = { light: "", dark: ".dark" };
 
     icon?: React.ComponentType;
-  } & ({ color?: string; theme?: never } | { color?: never; theme });
+  } & ({ color; theme?: never } | { color?: never; theme });
 };
 
 };
@@ -87,8 +87,8 @@ const ChartTooltipContent = React.forwardRef &
       hideLabel?: boolean;
       hideIndicator?: boolean;
       indicator?: "line" | "dot" | "dashed";
-      nameKey?: string;
-      labelKey?: string;
+      nameKey;
+      labelKey;
     }
 >(
   (
@@ -221,7 +221,7 @@ const ChartLegend = RechartsPrimitive.Legend;
 const ChartLegendContent = React.forwardRef &
     Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
       hideIcon?: boolean;
-      nameKey?: string;
+      nameKey;
     }
 >(({ className, hideIcon = false, payload, verticalAlign = "bottom", nameKey }, ref) => {
   const { config } = useChart();
