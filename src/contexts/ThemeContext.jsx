@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export const themes: ThemeOption[] = [
+export const themes = [
   { name: 'ocean-blue', label: 'Ocean Blue', primary: '#6C8CFF', secondary: '#22D3EE' },
   { name: 'royal-violet', label: 'Royal Violet', primary: '#8B5CF6', secondary: '#A78BFA' },
   { name: 'sunset-pink', label: 'Sunset Pink', primary: '#F472B6', secondary: '#FB7185' },
@@ -8,7 +8,7 @@ export const themes: ThemeOption[] = [
   { name: 'dark-elegant', label: 'Dark Elegant', primary: '#6C8CFF', secondary: '#22D3EE' },
 ];
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(

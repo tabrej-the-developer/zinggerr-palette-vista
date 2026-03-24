@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const StatCard = ({ title, value, prefix = '', icon: Icon, trend, delay = 0 }: StatCardProps) => {
+const StatCard = ({ title, value, prefix = '', icon: Icon, trend, delay = 0 }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
