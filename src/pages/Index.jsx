@@ -1,10 +1,5 @@
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import Dashboard from './Dashboard';
 
-const Index = () => (
-  <ThemeProvider>
-    <Dashboard />
-  </ThemeProvider>
-);
+const Index = () => <Dashboard />;
 
 export default Index;
