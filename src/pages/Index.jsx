@@ -1,10 +1,5 @@
-import { ThemeProvider } from '@/contexts/ThemeContext';
-import Dashboard from './Dashboard';
+import { Navigate } from 'react-router-dom';
 
-const Index = () => (
-  <ThemeProvider>
-    <Dashboard />
-  </ThemeProvider>
-);
+const Index = () => <Navigate to="/" replace />;
 
 export default Index;
