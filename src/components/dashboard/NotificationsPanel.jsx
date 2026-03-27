@@ -14,7 +14,7 @@ const NotificationsPanel = () => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.6 }}
-    className="p-6 rounded-2xl glass-surface backdrop-blur-xl"
+className="p-6 rounded-2xl glass-surface backdrop-blur-xl"
   >
     <h3 className="text-lg font-bold text-main mb-4">Notifications</h3>
     <div className="space-y-3">

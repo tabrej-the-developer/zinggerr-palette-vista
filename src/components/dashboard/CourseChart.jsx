@@ -14,7 +14,7 @@ const data = [
   { month: 'Oct', enrollments: 460, revenue: 14200 },
   { month: 'Nov', enrollments: 510, revenue: 15600 },
   { month: 'Dec', enrollments: 480, revenue: 14842 },
-];
+];   
 
 const CourseChart = () => {
   return (
