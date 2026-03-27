@@ -260,14 +260,19 @@ const UserList = () => {
   const [editUser, setEditUser] = useState(null);
   const [infoUser, setInfoUser] = useState(null);
   const [deleteUser, setDeleteUser] = useState(null);
+  const [roleFilter, setRoleFilter] = useState('All');
+
+  const uniqueRoles = useMemo(() => ['All', ...new Set(users.map(u => u.role))], [users]);
 
   const filtered = useMemo(() =>
-    users.filter(u =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase()) ||
-      u.username.toLowerCase().includes(search.toLowerCase()) ||
-      u.role.toLowerCase().includes(search.toLowerCase())
-    ), [users, search]);
+    users.filter(u => {
+      const matchesSearch = u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase()) ||
+        u.username.toLowerCase().includes(search.toLowerCase()) ||
+        u.role.toLowerCase().includes(search.toLowerCase());
+      const matchesRole = roleFilter === 'All' || u.role === roleFilter;
+      return matchesSearch && matchesRole;
+    }), [users, search, roleFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const paginated = filtered.slice((page - 1) * perPage, page * perPage);
