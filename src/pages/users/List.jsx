@@ -260,14 +260,19 @@ const UserList = () => {
   const [editUser, setEditUser] = useState(null);
   const [infoUser, setInfoUser] = useState(null);
   const [deleteUser, setDeleteUser] = useState(null);
+  const [roleFilter, setRoleFilter] = useState('All');
+
+  const uniqueRoles = useMemo(() => ['All', ...new Set(users.map(u => u.role))], [users]);
 
   const filtered = useMemo(() =>
-    users.filter(u =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase()) ||
-      u.username.toLowerCase().includes(search.toLowerCase()) ||
-      u.role.toLowerCase().includes(search.toLowerCase())
-    ), [users, search]);
+    users.filter(u => {
+      const matchesSearch = u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase()) ||
+        u.username.toLowerCase().includes(search.toLowerCase()) ||
+        u.role.toLowerCase().includes(search.toLowerCase());
+      const matchesRole = roleFilter === 'All' || u.role === roleFilter;
+      return matchesSearch && matchesRole;
+    }), [users, search, roleFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const paginated = filtered.slice((page - 1) * perPage, page * perPage);
@@ -313,6 +318,12 @@ const UserList = () => {
             {[5, 10, 25, 50].map(n => <option key={n} value={n}>{n}</option>)}
           </select>
           <span className="text-sm text-muted-custom">entries</span>
+          <span className="text-sm text-muted-custom ml-3">Role</span>
+          <select value={roleFilter} onChange={e => { setRoleFilter(e.target.value); setPage(1); }}
+            className="px-3 py-2 rounded-xl text-sm bg-surface-solid text-main border outline-none transition-all focus:shadow-glow appearance-none cursor-pointer"
+            style={{ borderColor: 'var(--border)' }}>
+            {uniqueRoles.map(r => <option key={r} value={r}>{r}</option>)}
+          </select>
         </div>
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-custom" />
