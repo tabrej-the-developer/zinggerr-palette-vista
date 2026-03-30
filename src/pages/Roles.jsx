@@ -1,102 +1,110 @@
-import { Shield, Plus, Search, Edit2, Trash2 } from 'lucide-react';
-import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow
-} from '@/components/ui/table';
+import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Search, Plus, Shield, Home, ChevronRight } from 'lucide-react';
+import RoleTable from '@/components/roles/RoleTable';
+import CreateRoleModal from '@/components/roles/CreateRoleModal';
+import EditRoleModal from '@/components/roles/EditRoleModal';
+import DeleteRoleModal from '@/components/roles/DeleteRoleModal';
 
-const rolesData = [
-  { id: 1, name: 'Super Admin', description: 'Full system access with all permissions', users: 2, color: 'destructive' },
-  { id: 2, name: 'Admin', description: 'Manage users, courses, and settings', users: 5, color: 'default' },
-  { id: 3, name: 'Faculty', description: 'Create and manage courses and grades', users: 86, color: 'secondary' },
-  { id: 4, name: 'Student', description: 'Access enrolled courses and materials', users: 1248, color: 'outline' },
-  { id: 5, name: 'Moderator', description: 'Moderate discussions and content', users: 12, color: 'secondary' },
+const INITIAL_ROLES = [
+  { id: 1, displayName: 'Super Admin', name: 'super_admin', description: 'Full system access with all permissions' },
+  { id: 2, displayName: 'Admin', name: 'admin', description: 'Manage users, courses, and settings' },
+  { id: 3, displayName: 'Faculty', name: 'faculty', description: 'Create and manage courses and grades' },
+  { id: 4, displayName: 'Student', name: 'student', description: 'Access enrolled courses and materials' },
+  { id: 5, displayName: 'Moderator', name: 'moderator', description: 'Moderate discussions and content' },
 ];
 
 const Roles = () => {
+  const [roles, setRoles] = useState(INITIAL_ROLES);
   const [search, setSearch] = useState('');
+  const [createOpen, setCreateOpen] = useState(false);
+  const [editRole, setEditRole] = useState(null);
+  const [deleteRole, setDeleteRole] = useState(null);
 
-  const filtered = rolesData.filter(r =>
-    r.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = useMemo(() =>
+    roles.filter(r =>
+      r.displayName.toLowerCase().includes(search.toLowerCase()) ||
+      r.name.toLowerCase().includes(search.toLowerCase())
+    ), [roles, search]);
+
+  const handleCreate = (newRole) => {
+    setRoles(prev => [...prev, { ...newRole, id: Date.now() }]);
+  };
+
+  const handleUpdate = (updated) => {
+    setRoles(prev => prev.map(r => r.id === updated.id ? updated : r));
+  };
+
+  const handleDelete = (id) => {
+    setRoles(prev => prev.filter(r => r.id !== id));
+  };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-main">Roles Management</h1>
-          <p className="text-sm text-muted-custom mt-1">Define and manage user roles and permissions.</p>
+      {/* Breadcrumb + Header */}
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        <div className="flex items-center gap-2 text-xs text-muted-custom mb-4">
+          <Link to="/" className="flex items-center gap-1 hover:text-main transition-colors">
+            <Home size={13} /> Home
+          </Link>
+          <ChevronRight size={12} />
+          <span className="text-main font-medium">Roles</span>
         </div>
-        <Button className="gap-2">
-          <Plus size={16} /> Add Role
-        </Button>
-      </div>
 
-      <Card className="border-border-default bg-surface-card shadow-sm">
-        <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-main flex items-center gap-2">
-              <Shield size={20} /> All Roles
-            </CardTitle>
-            <div className="relative w-64">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-custom" />
-              <Input
-                placeholder="Search roles..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                className="pl-9 bg-surface-card border-border-default"
-              />
+        <div className="glass-surface rounded-2xl p-6 shadow-glass">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+              style={{ background: `linear-gradient(135deg, var(--primary), var(--secondary))` }}>
+              <Shield size={22} className="text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-main">Roles</h1>
+              <p className="text-sm text-muted-custom mt-0.5">Manage roles and permissions</p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-border-default">
-                <TableHead className="text-muted-custom">#</TableHead>
-                <TableHead className="text-muted-custom">Role Name</TableHead>
-                <TableHead className="text-muted-custom">Description</TableHead>
-                <TableHead className="text-muted-custom text-center">Users</TableHead>
-                <TableHead className="text-muted-custom text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.map((role, i) => (
-                <TableRow key={role.id} className="border-border-default hover:bg-white/5 transition-colors">
-                  <TableCell className="text-muted-custom font-medium">{i + 1}</TableCell>
-                  <TableCell>
-                    <Badge variant={role.color} className="text-xs font-semibold px-3 py-1">
-                      {role.name}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-custom">{role.description}</TableCell>
-                  <TableCell className="text-center font-semibold text-main">{role.users}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex items-center justify-end gap-1">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-custom hover:text-main">
-                        <Edit2 size={15} />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-custom hover:text-red-500">
-                        <Trash2 size={15} />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filtered.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-10 text-muted-custom">
-                    No roles found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+        </div>
+      </motion.div>
+
+      {/* Action Bar */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.3 }}
+        className="flex items-center justify-between gap-4 flex-wrap">
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => setCreateOpen(true)}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all shadow-glow hover:shadow-lg"
+          style={{ background: `linear-gradient(135deg, var(--primary), var(--secondary))` }}>
+          <Plus size={16} /> Add Role
+        </motion.button>
+
+        <div className="relative w-72">
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-custom pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search roles..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2"
+            style={{
+              background: 'var(--surface)',
+              borderColor: 'var(--border)',
+              color: 'var(--text-main)',
+              '--tw-ring-color': 'rgba(var(--primary-rgb), 0.3)',
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Table */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.3 }}>
+        <RoleTable roles={filtered} onEdit={setEditRole} onDelete={setDeleteRole} />
+      </motion.div>
+
+      {/* Modals */}
+      <CreateRoleModal isOpen={createOpen} onClose={() => setCreateOpen(false)} onSave={handleCreate} />
+      <EditRoleModal isOpen={!!editRole} onClose={() => setEditRole(null)} role={editRole} onUpdate={handleUpdate} />
+      <DeleteRoleModal isOpen={!!deleteRole} onClose={() => setDeleteRole(null)} role={deleteRole} onDelete={handleDelete} />
     </div>
   );
 };
