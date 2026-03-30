@@ -20,7 +20,7 @@ const menuItems = [
   { icon: Shield, label: 'Roles', path: '/roles' },
   { icon: BookOpen, label: 'Courses' },
   { icon: ClipboardList, label: 'Enrollments' },
-  { icon: CalendarDays, label: 'Events' },
+  { icon: CalendarDays, label: 'Events', path: '/events' },
   { icon: ListTodo, label: 'Tasks' },
   { icon: Video, label: 'Live Classes' },
   { icon: Bell, label: 'Notifications' },
