@@ -8,8 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Create from "./pages/users/Create";
 import UserList from "./pages/users/List";
-import Faculty from "./pages/users/Faculty";
-import Student from "./pages/users/Student";
+import Roles from "./pages/Roles";
 
 const queryClient = new QueryClient();
 
