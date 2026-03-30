@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Create from "./pages/users/Create";
 import UserList from "./pages/users/List";
 import Roles from "./pages/Roles";
+import Events from "./pages/Events";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
               <Route path="users/create" element={<Create />} />
               <Route path="users/list" element={<UserList />} />
               <Route path="roles" element={<Roles />} />
+              <Route path="events" element={<Events />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
