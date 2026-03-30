@@ -17,8 +17,6 @@ const usersSubItems = [
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
   { icon: Users, label: 'Users', hasDropdown: true },
-  { icon: GraduationCap, label: 'Students' },
-  { icon: Users, label: 'Faculty' },
   { icon: BookOpen, label: 'Courses' },
   { icon: ClipboardList, label: 'Enrollments' },
   { icon: CalendarDays, label: 'Events' },
